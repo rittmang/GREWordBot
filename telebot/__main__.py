@@ -4,7 +4,7 @@ import urllib.request as request
 import json
 from telegram import Update, BotCommand
 from telegram.ext import CallbackContext, CommandHandler
-import os
+from decouple import config as dconfig
 from telebot import updater, config, log, dispatcher
 
 # curl --data "entry.360220839=aa&entry.2084162701=bb&entry.2023085564=cc&entry.1938153099=dd" {os.environ['FORM_URL]}
@@ -45,7 +45,7 @@ def random(update: Update, context:CallbackContext):
     #get a word from your Sheets
     log(update,func_name="random")
     
-    with request.urlopen(os.environ['SPREADSHEET_URL']) as response:
+    with request.urlopen(dconfig("SPREADSHEET_URL")) as response:
         if response.getcode()==200:
             source=response.read()
             data=json.loads(source)
@@ -82,7 +82,7 @@ Hint=_{data['values'][chosen][4] if len(data['values'][chosen])==5 else ""}_
 def allWords(update:Update,context:CallbackContext):
     #get all words from Sheets
     log(update,func_name="all")
-    with request.urlopen(os.environ['SPREADSHEET_URL']) as response:
+    with request.urlopen(dconfig('SPREADSHEET_URL')) as response:
         if response.getcode()==200:
             source=response.read()
             data=json.loads(source)
@@ -106,7 +106,7 @@ Hint=_{data['values'][i][4] if len(data['values'][i])==5 else ""}_
 def search(update:Update,context:CallbackContext):
     # get substring matches from word / meaning field
     log(update,func_name="search")
-    with request.urlopen(os.environ['SPREADSHEET_URL']) as response:
+    with request.urlopen(dconfig('SPREADSHEET_URL')) as response:
         if response.getcode()==200:           
             if(context.args):
                 count=0
