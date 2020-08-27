@@ -40,6 +40,13 @@ def help(update: Update, context: CallbackContext):
     text_blob = "Nou"
     update.message.reply_markdown(text_blob)
 
+def clear(update: Update, context: CallbackContext):
+    # clear cache
+    log(update, func_name="clear")
+    word_cache.clear()
+    text_blob = f"""_Cleared cache_"""
+    update.message.reply_markdown(text_blob)
+
 
 def random(update: Update, context:CallbackContext):
     #get a word from your Sheets
@@ -146,7 +153,8 @@ COMMANDS = [
     BotCommand(command='help', description="Display the help text to understand how to use this bot"),
     BotCommand(command='random', description="Get a random word"),
     BotCommand(command='all', description="Get all words in order"),
-    BotCommand(command='search',description="Gets words with this substring in word or meaning fields.")
+    BotCommand(command='search',description="Gets words with this substring in word or meaning fields."),
+    BotCommand(command='clear',description="Clears word cache")
 ]
 
 if __name__ == "__main__":
@@ -156,6 +164,7 @@ if __name__ == "__main__":
     dispatcher.add_handler(CommandHandler("all",allWords))
     dispatcher.add_handler(CommandHandler("search",search))
     dispatcher.add_handler(CommandHandler("help", help))
+    dispatcher.add_handler(CommandHandler("clear",clear))
 
     updater.bot.set_my_commands(COMMANDS)
 
