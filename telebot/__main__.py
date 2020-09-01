@@ -48,7 +48,7 @@ def help(update: Update, context: CallbackContext):
 def clear(update: Update, context: CallbackContext):
     # clear cache
     log(update, func_name="clear")
-    word_cache.clear()
+    clear_words_for_user(update.effective_user.id)
     text_blob = f"""_Cleared cache_"""
     update.message.reply_markdown(text_blob)
 
