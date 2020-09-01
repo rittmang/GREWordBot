@@ -2,6 +2,8 @@ import importlib
 from random import choice
 import urllib.request as request
 import json
+
+from mongoengine import connect
 from telegram import Update, BotCommand
 from telegram.ext import CallbackContext, CommandHandler
 from decouple import config as dconfig
@@ -165,6 +167,9 @@ if __name__ == "__main__":
     dispatcher.add_handler(CommandHandler("search",search))
     dispatcher.add_handler(CommandHandler("help", help))
     dispatcher.add_handler(CommandHandler("clear",clear))
+
+    if config.DB_NAME:
+        connect(config.DB_NAME, 'default', host=config.DB_URI)
 
     updater.bot.set_my_commands(COMMANDS)
 

@@ -5,7 +5,7 @@ from telegram.ext import Updater
 
 # class for configuration of a bot
 class Config:
-    def __init__(self, token, db_uri, webhook_url, port=False, load=None, no_load=None):
+    def __init__(self, token, db_name=False, db_uri=False, webhook_url=False, port=False, load=None, no_load=None):
         """
         Initialize bot config values
         :param token: telegram bot token that you get from botfather
@@ -18,6 +18,7 @@ class Config:
 
         self.TOKEN = token
         self.DB_URI = db_uri
+        self.DB_NAME = db_name
         self.WEBHOOK_URL = webhook_url
         self.PORT = port
 
@@ -45,6 +46,7 @@ def log(update: Update, func_name: str, extra_text: str = ""):
 # create config object
 config = Config(
     token=config('TOKEN'),
+    db_name=config('DATABASE_NAME', default=False),
     db_uri=config('DATABASE_URL', default=False),
     webhook_url=config('WEBHOOK_URL', default=False),
     port=config('PORT', default=False),
