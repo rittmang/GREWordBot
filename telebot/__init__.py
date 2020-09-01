@@ -10,10 +10,10 @@ class Config:
         Initialize bot config values
         :param token: telegram bot token that you get from botfather
         :param db_uri: URI connection string to the database
-        :param webhook_url:
-        :param port:
-        :param load:
-        :param no_load:
+        :param webhook_url: The URL your webhook should connect to (only needed for webhook mode)
+        :param port: Port to use for your webhooks
+        :param load: list of modules to load
+        :param no_load: list of modules to not load
         """
 
         self.TOKEN = token
