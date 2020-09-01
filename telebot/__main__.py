@@ -28,7 +28,6 @@ Use following commands to use me (*blush*):
 - /start - Turn me on
 """
 )
-word_cache = []
 
 
 def start(update: Update, context: CallbackContext):
