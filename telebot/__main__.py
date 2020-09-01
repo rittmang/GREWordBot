@@ -13,6 +13,7 @@ from telebot import updater, config, log, dispatcher
 # mimic above in py to send formdata aa,bb,cc,dd to form db of form
 
 # default reply strings
+from telebot.db import get_words_for_user, clear_words_for_user, add_word_for_user
 
 START_TEXT = f"""
 Hi there!
@@ -60,8 +61,11 @@ def random(update: Update, context: CallbackContext):
         if response.getcode() == 200:
             source = response.read()
             data = json.loads(source)
+
+            word_cache = get_words_for_user(update.effective_user.id)
+
             if len(word_cache) == len(data['values']):
-                word_cache.clear()
+                clear_words_for_user(update.effective_user.id)
 
             while True:
                 chosen = choice(range(len(data['values'])))
@@ -82,7 +86,7 @@ Hint=_{data['values'][chosen][4] if len(data['values'][chosen])==5 else ""}_
                         update.message.reply_markdown(f"_{word_cache}_")
 
                     update.message.reply_markdown(MESSAGE)
-                    word_cache.append(data['values'][chosen][0])
+                    add_word_for_user(update.effective_user.id, data['values'][chosen][0])
                     break
                 else:
                     continue

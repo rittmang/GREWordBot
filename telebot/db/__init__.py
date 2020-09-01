@@ -48,3 +48,20 @@ def get_words_for_user(user: int) -> List[str]:
         return User.objects(id=user)[0].words
     except:
         return []
+
+
+def clear_words_for_user(user: int) -> bool:
+    """
+    Clear list of all words for a user
+    :param user: ID of the user
+    :return: True if all words cleared, else False
+    """
+    try:
+        user_list = User.objects(id=user)
+        if user_list:
+            user_list[0].words = []
+            user_list[0].save()
+
+        return True
+    except:
+        return False
