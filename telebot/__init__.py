@@ -5,18 +5,20 @@ from telegram.ext import Updater
 
 # class for configuration of a bot
 class Config:
-    def __init__(self, token, port=False, load=None, no_load=None):
+    def __init__(self, token, db_uri, webhook_url, port=False, load=None, no_load=None):
         """
-        Function to initialize the config for a bot
-        :param token: Your bot token, as a string.
-        :param db_uri: Your database URL
-        :param webhook_url: The URL your webhook should connect to (only needed for webhook mode)
-        :param port: Port to use for your webhooks
+        Initialize bot config values
+        :param token: telegram bot token that you get from botfather
+        :param db_uri: URI connection string to the database
+        :param webhook_url:
+        :param port:
+        :param load:
+        :param no_load:
         """
 
         self.TOKEN = token
-        #self.DB_URI = db_uri
-        #self.WEBHOOK_URL = webhook_url
+        self.DB_URI = db_uri
+        self.WEBHOOK_URL = webhook_url
         self.PORT = port
 
         self.LOAD = load
@@ -43,8 +45,8 @@ def log(update: Update, func_name: str, extra_text: str = ""):
 # create config object
 config = Config(
     token=config('TOKEN'),
-    #db_uri=config('DATABASE_URL'),
-    #webhook_url=config('WEBHOOK_URL', default=False),
+    db_uri=config('DATABASE_URL', default=False),
+    webhook_url=config('WEBHOOK_URL', default=False),
     port=config('PORT', default=False),
     load=config('LOAD', default=False, cast=lambda x: x.split(" ") if x else False),
     no_load=config('NO_LOAD', default=False, cast=lambda x: x.split(" ") if x else False),
