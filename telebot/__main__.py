@@ -81,7 +81,7 @@ Hint=_{data['values'][chosen][4] if len(data['values'][chosen])==5 else ""}_
                     word_cache.append(data['values'][chosen][0])
                     break
                 else:
-                    continue;
+                    continue
         else:
             MESSAGE=f"""Sheets API high or something..idk"""
             update.message.reply_markdown(MESSAGE)
