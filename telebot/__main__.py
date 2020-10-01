@@ -39,7 +39,7 @@ def help(update: Update, context: CallbackContext):
     # display help message
     log(update, func_name="help")
 
-    text_blob = "Nou"
+    text_blob = "The commands literally do stuff as stated."
     update.message.reply_markdown(text_blob)
 
 
