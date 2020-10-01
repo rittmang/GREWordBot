@@ -1,19 +1,18 @@
-import importlib
-from random import choice
-import urllib.request as request
 import json
+import urllib.request as request
+from random import choice
 
+from decouple import config as dconfig
 from mongoengine import connect
 from telegram import Update, BotCommand
 from telegram.ext import CallbackContext, CommandHandler
-from decouple import config as dconfig
+
 from telebot import updater, config, log, dispatcher
+# default reply strings
+from telebot.db import get_words_for_user, clear_words_for_user, add_word_for_user
 
 # curl --data "entry.360220839=aa&entry.2084162701=bb&entry.2023085564=cc&entry.1938153099=dd" {os.environ['FORM_URL]}
 # mimic above in py to send formdata aa,bb,cc,dd to form db of form
-
-# default reply strings
-from telebot.db import get_words_for_user, clear_words_for_user, add_word_for_user
 
 START_TEXT = f"""
 Hi there!
